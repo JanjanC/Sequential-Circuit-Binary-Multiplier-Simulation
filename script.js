@@ -19,7 +19,7 @@ function get2sComplement(bin) {
     }
     return complement;
 }
-
+//Convert decimal to signed binary
 function decToSignedBin(dec) {
     dec = parseInt(dec);
     if (dec >= 0) {
@@ -29,12 +29,13 @@ function decToSignedBin(dec) {
         return get2sComplement(temp);
     }
 }
-
+//Add binary inputs
 function addBin(bin1, bin2) {
     let carryOver = 0;
     let answer = "";
-    //check bin.length == bin2.length
-    for (let ctr = bin1.length - 1; ctr >= 0; ctr--) {
+    // Get shortest length to avoid errors when lengths do not match
+    let length = bin1.length < bin2.length ? bin1.length : bin2.length;
+    for (let ctr = length - 1; ctr >= 0; ctr--) {
         carryOver =
             carryOver + parseInt(bin1.charAt(ctr)) + parseInt(bin2.charAt(ctr));
         answer = (carryOver % 2) + answer;
@@ -43,14 +44,14 @@ function addBin(bin1, bin2) {
     console.log("ADD BINARY RESULT: " + answer);
     return answer;
 }
-
-//Function for each iteration
-function sequentialCircuitBinaryMultiply(num1, num2, isBinary) {
+//Multiply num1 and num2 and return the steps
+function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
     let A = ""; //Answer
     let Qsub1 = "0"; //Quotient Sub 1 from Arithmetic Shift Right
     let M = isBinary ? num1 : decToSignedBin(num1); //Multiplicand
-    let Mcomplement = isBinary ? -num1 : decToSignedBin(-num1); //Multiplicand
+    let Mcomplement = isBinary ? get2sComplement(num1) : decToSignedBin(-num1); //Multiplicand
     let Q = isBinary ? num2 : decToSignedBin(num2); //Multiplier
+    // Get the longest length
     let length = M.length > Q.length ? M.length : Q.length;
 
     // Make sure they are all the same length
@@ -58,19 +59,23 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary) {
     Q = Q.padStart(length, Q.charAt(0));
     A = A.padStart(length, "0");
     Mcomplement = Mcomplement.padStart(length, Mcomplement.charAt(0));
-    console.log("Mcomplement : " + Mcomplement);
-    console.log("M: " + M);
+
+    // Will contain the steps
     const iterations = [];
-    console.log(Q);
+
     for (let i = 0; i < length; i++) {
         let values = {};
 
+        // Add M if Q_0Q_-1 is 01 or Subtract M if Q_0Q_-1 is 10
         if (Q.charAt(Q.length - 1) == "0" && Qsub1 == "1") A = addBin(A, M);
         else if (Q.charAt(Q.length - 1) == "1" && Qsub1 == "0")
             A = addBin(A, Mcomplement);
-        console.log(i + ": " + A);
 
-        /**SHIFT ARITHMETIC RIGHT**/
+        values.Amid = A;
+        values.Qmid = Q;
+        values.Qsub1mid = Qsub1;
+
+        //Shift Arithmetic Right
         // Qsub1 gets the value of Q0 (the least significant bit of Q)
         Qsub1 = Q.charAt(Q.length - 1);
         // Q gets the least significant bit of A concatenated with Q minus the last character
@@ -78,49 +83,165 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary) {
         // A gets the most significant value of A concatenated with A minus the last character
         A = A.charAt(0) + A.slice(0, -1);
 
+        // Store values from the current iteration
         values.A = A;
         values.Q = Q;
         values.Qsub1 = Qsub1;
-        values.M = M;
+
+        //Store solution message from the current iteration
+        const arrow = String.fromCodePoint(0x2190); //Arrow Unicode: U+0x2190
+        const subneg = String.fromCodePoint(0x208b); //Subscript - Unicode: U+0x208B
+        const subone = String.fromCodePoint(0x2081); //Subscript 1 Unicode: U+0x2081
+
+        values.operation = [];
+        // "A <- A + M (values)"
+        if (Q.charAt(Q.length - 1) == "0" && Qsub1 == "1") {
+            values.operation[0] = `A ${arrow} A + M<br>`;
+            values.operation[0] += `A ${arrow} ${A} + ${M}`;
+        }
+
+        // "A <- A - M (values)"
+        else if (Q.charAt(Q.length - 1) == "1" && Qsub1 == "0") {
+            values.operation[0] = `A ${arrow} A - M<br>`;
+            values.operation[0] += `A ${arrow} ${A} + ${Mcomplement}`;
+        }
+
+        // "A <- A"
+        else {
+            values.operation[0] = `A ${arrow} A`;
+        }
+
+        //Shift Arithmetic Right AQQ_-1
+        values.operation[1] = `Shift Arithmetic Right A Q Q${subneg}${subone}`;
         iterations.push(values);
-        console.log(values);
     }
     return iterations;
 }
+//Submit for Decimal Inputs
+function submitDecimal() {
+    let num1 = $("#dec1").val();
+    let num2 = $("#dec2").val();
+    if (checkInputs(false))
+        displayData(sequentialCircuitBinaryMultiply(num1, num2));
+}
+//Submit for Binary Inputs
+function submitBinary() {
+    let num1 = $("#bin1").val();
+    let num2 = $("#bin2").val();
+    if (checkInputs(true))
+        displayData(sequentialCircuitBinaryMultiply(num1, num2, true));
+}
 
-function submit() {
-    let num1 = document.getElementById("num1").value;
-    let num2 = document.getElementById("num2").value;
-    let iterations = sequentialCircuitBinaryMultiply(num1, num2, false);
-    console.log(iterations);
-    let table = document.getElementById("answer");
-    while (table.firstChild) table.removeChild(table.firstChild);
+//Displays the result of the Sequential Circuit Binary Multiplier operation
+function displayData(values = null) {
+    let answer = $("#answer");
 
-    let headerRow = document.createElement("tr");
-    let header1 = document.createElement("th");
-    header1.appendChild(document.createTextNode("A"));
-    let header2 = document.createElement("th");
-    header2.appendChild(document.createTextNode("Q"));
-    let header3 = document.createElement("th");
-    header3.appendChild(document.createTextNode("Q -1"));
-    headerRow.appendChild(header1);
-    headerRow.appendChild(header2);
-    headerRow.appendChild(header3);
-    table.appendChild(headerRow);
+    answer.empty();
 
-    for (const i of iterations) {
-        let row = document.createElement("tr");
-        let aData = document.createElement("td");
-        let qData = document.createElement("td");
-        let qSub1Data = document.createElement("td");
-        aData.appendChild(document.createTextNode(i.A));
-        qData.appendChild(document.createTextNode(i.Q));
-        qSub1Data.appendChild(document.createTextNode(i.Qsub1));
-        row.appendChild(aData);
-        row.appendChild(qData);
-        row.appendChild(qSub1Data);
-        table.appendChild(row);
+    for (let i = 0; i < values.length; i++) {
+        answer.append(
+            `
+            <div id="iteration-${
+                i + 1
+            }" class="mt-3 border rounded shadow-sm p-3">
+                <div class="d-flex align-items-center">
+                    <p class="mr-auto">Iteration #${i + 1}</p>
+                    <button class="btn btn-primary btn-sm" data-toggle="collapse" data-target="#iteration-${
+                        i + 1
+                    }-solution"><i class="fa fa-plus"></i></button>
+                </div>
+                <table class="table table-borderless mt-3">
+                    <tr class="thead-light">
+                        <th class="align-middle text-center">A</th>
+                        <th class="align-middle text-center">Q</th>
+                        <th class="align-middle text-center">Q<sub>-1</sub></th>
+                    </tr>
+                    <tr>
+                        <td class="align-middle text-center">${values[i].A}</td>
+                        <td class="align-middle text-center">${values[i].Q}</td>
+                        <td class="align-middle text-center">${
+                            values[i].Qsub1
+                        }</td>
+                    </tr>
+                </table>
+                <div id="iteration-${i + 1}-solution" class="collapse">
+                    <p>Solution:</p>
+                    <p>${values[i].operation[0]}</p>
+                    <!-- Table for A+M / A-M / A-->
+
+                    <table class="table table-borderless mt-3">
+                        <tr class="thead-light">
+                            <th class="align-middle text-center">A</th>
+                            <th class="align-middle text-center">Q</th>
+                            <th class="align-middle text-center">Q<sub>-1</sub></th>
+                        </tr>
+                        <tr>
+                            <td class="align-middle text-center">${
+                                values[i].Amid
+                            }</td>
+                            <td class="align-middle text-center">${
+                                values[i].Qmid
+                            }</td>
+                            <td class="align-middle text-center">${
+                                values[i].Qsub1mid
+                            }</td>
+                        </tr>
+                    </table>
+
+                    <p>${values[i].operation[1]}</p>
+                    <!-- Table for Arithmetic Shift Right -->
+                    <table class="table table-borderless mt-3">
+                        <tr class="thead-light">
+                            <th class="align-middle text-center">A</th>
+                            <th class="align-middle text-center">Q</th>
+                            <th class="align-middle text-center">Q<sub>-1</sub></th>
+                        </tr>
+                        <tr>
+                            <td class="align-middle text-center">${
+                                values[i].A
+                            }</td>
+                            <td class="align-middle text-center">${
+                                values[i].Q
+                            }</td>
+                            <td class="align-middle text-center">${
+                                values[i].Qsub1
+                            }</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            `
+        );
     }
+    if (
+        $("#decimal-form.active #dec-step-by-step").prop("checked") ||
+        $("#binary-form.active #bin-step-by-step").prop("checked")
+    ) {
+        for (let i = 1; i < values.length; i++) $(`#iteration-${i + 1}`).hide();
+        $("#iteration-1").append(
+            `
+            <div class="text-right">
+                <button class="btn btn-primary" id="next" onclick="next()">Next</button>
+            </div>
+            `
+        );
+        $("#answer").children("div:last").find("#next").remove();
+    }
+}
+
+function next() {
+    $("#next").remove();
+    $("#answer")
+        .children("div:hidden:first")
+        .append(
+            `
+        <div class="text-right">
+            <button class="btn btn-primary" id="next" onclick="next()">Next</button>
+        </div>
+        `
+        );
+    $("#answer").children("div:hidden:first").show();
+    $("#answer").children("div:last").find("#next").remove();
 }
 
 /*
