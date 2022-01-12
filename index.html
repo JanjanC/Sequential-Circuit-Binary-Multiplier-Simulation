@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="assets/styles/index.css" />
         <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+            href="assets/lib/bootstrap/css/bootstrap.min.css"
         />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-        />
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 
-        <script type="text/javascript" src="script.js"></script>
-        <script type="text/javascript" src="validation.js"></script>
-        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="assets/lib/font-awesome/css/fontawesome.min.css"
+        />
+        <script
+            type="text/javascript"
+            src="assets/lib/popper/popper.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="assets/lib/jquery/jquery-3.6.0.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="assets/lib/bootstrap/js/bootstrap.bundle.min.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="assets/scripts/sequential-circuit-binary-multiplier.js"
+        ></script>
+        <script
+            type="text/javascript"
+            src="assets/scripts/validation.js"
+        ></script>
+        <title>Sequential Circuit Binary Multiplier Simulator</title>
     </head>
     <body>
-        <div class="container my-5">
-            <h1 class="text-center">
+        <nav class="navbar navbar-expand bg-primary">
+            <span class="navbar-brand">Group 4</span>
+        </nav>
+        <div class="shadow container my-0 py-4 px-5">
+            <h1
+                class="text-center bg-dark text-light p-4 mb-4 rounded shadow-sm"
+            >
                 CSARCH2 Sequential Circuit Binary Multiplier Simulator
             </h1>
             <ul class="nav nav-pills mt-3">
@@ -79,6 +97,7 @@
                             class="form-control"
                             id="dec1"
                             pattern="[0-9]+"
+                            placeholder="e.g. 123, -456, -1, 0"
                             title="0 - 9 Only"
                         />
                         <div id="dec1_error" class="text-danger"></div>
@@ -91,13 +110,19 @@
                             class="form-control"
                             id="dec2"
                             pattern="[0-9]+"
+                            placeholder="e.g. 123, -456, -1, 0"
                             title="0 - 9 Only"
                         />
                         <div id="dec2_error" class="text-danger"></div>
                     </div>
-                    <button class="btn btn-primary" onclick="submitDecimal()">
-                        Calculate!
-                    </button>
+                    <div class="text-right">
+                        <button
+                            class="btn btn-primary"
+                            onclick="submitDecimal()"
+                        >
+                            Calculate!
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Form for Binary -->
@@ -129,31 +154,38 @@
                     </div>
                     <!-- First Binary Number Input -->
                     <div class="form-group mt-3">
-                        <label for="bin1">Binary Input #1</label>
+                        <label for="bin1">Signed Binary Input #1</label>
                         <input
                             type="text"
                             class="form-control"
                             id="bin1"
                             pattern="[0-1]+"
+                            placeholder="e.g. 001, 1101, 11111, 00"
                             title="0 - 1 Only"
                         />
                         <div id="bin1_error" class="text-danger"></div>
                     </div>
                     <!-- Second Binary Number Input -->
                     <div class="form-group mt-3">
-                        <label for="bin2">Binary Input #2</label>
+                        <label for="bin2">Signed Binary Input #2</label>
                         <input
                             type="text"
                             class="form-control"
                             id="bin2"
                             pattern="[0-1]+"
+                            placeholder="e.g. 001, 1101, 11111, 00"
                             title="0 - 1 Only"
                         />
                         <div id="bin2_error" class="text-danger"></div>
                     </div>
-                    <button class="btn btn-primary" onclick="submitBinary()">
-                        Calculate!
-                    </button>
+                    <div class="text-right">
+                        <button
+                            class="btn btn-primary"
+                            onclick="submitBinary()"
+                        >
+                            Calculate!
+                        </button>
+                    </div>
                 </div>
             </div>
             <div id="answer" class="mt-3"></div>
