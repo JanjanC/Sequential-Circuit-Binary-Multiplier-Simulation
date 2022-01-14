@@ -1,4 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@font-face {
+    font-family: Roboto Mono;
+    src: url(/assets/fonts/RobotoMono-Regular.ttf);
+}
+
+@font-face {
+    font-family: Spline Sans;
+    src: url(/assets/fonts/SplineSans-SemiBold.ttf);
+}
 
 html,
 body {
@@ -8,8 +16,70 @@ body {
 
 body {
     font-family: "Roboto Mono", monospace !important;
+    color: #0d1f2d;
+}
+
+img {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+body .text-primary {
+    color: #0d1f2d !important;
+}
+
+.table .thead-light th {
+    border-color: #0d1f2d !important;
+    background-color: #0d1f2d !important;
+    color: #f8f9fa !important;
+}
+
+.table td {
+    border: none !important;
+}
+
+.navbar-brand {
+    font-family: "Spline Sans", sans-serif;
+}
+
+.navbar.bg-primary {
+    background-color: #0d1f2d !important;
+    color: #f8f9fa !important;
+}
+
+.header {
+    background-color: #0d1f2d;
+}
+.nav-link {
+    color: #0d1f2d;
+}
+
+.nav-link.active {
+    border-color: #0d1f2d !important;
+    background-color: #0d1f2d !important;
+    color: #f8f9fa !important;
+}
+
+.nav-link.active:hover {
+    border-color: #0d1f2d;
+    background-color: #0d1f2d;
+    color: #f5c86d !important;
+    transition: 0.3s;
+}
+
+.btn.btn-primary {
+    border-color: #0d1f2d;
+    background-color: #0d1f2d;
+    color: #f8f9fa;
+}
+
+.btn.btn-primary:hover {
+    border-color: #0d1f2d;
+    background-color: #0d1f2d;
+    color: #f5c86d;
+    transition: 0.3s;
 }
 
 .collapse {
-    background-color: #edf4f7;
+    background-color: #f3daa9;
 }

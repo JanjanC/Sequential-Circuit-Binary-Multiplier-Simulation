@@ -1,56 +1,75 @@
-//Validates inputs
-function checkInputs(isBinary) {
-    let pass = true;
-    let num1 = $(isBinary ? "#bin1" : "#dec1").val();
-    let num2 = $(isBinary ? "#bin2" : "#dec2").val();
+function checkBinaryInput() {
+    let isValid = true;
+    let num1 = $("#bin1").val();
+    let num2 = $("#bin2").val();
 
     // Check if num1 is a number, not an empty string, or only 0s and 1s for binary
-    if (
-        isNaN(num1) ||
-        num1 == "" ||
-        (isBinary && !new RegExp(/[0-1]+/).test(num1))
-    ) {
-        $(isBinary ? "#bin1_error" : "#dec1_error").text(
-            "Invalid input. Please try again."
-        );
-        pass = false;
+    if (isNaN(num1) || num1 == "" || !new RegExp(/[0-1]+/).test(num1)) {
+        $("#bin1_error").text("Invalid input. Please try again.");
+        isValid = false;
     }
-    // Check if num1 is within range -32768 to 32767 for decimal, 0-16 length for binary
-    else if (
-        (!isBinary && (num1 > 32767 || num1 < -32768)) ||
-        (isBinary && ((num1 + "").length > 16 || (num1 + "").length < 0))
-    ) {
-        $(isBinary ? "#bin1_error" : "#dec1_error").text(
-            "Out of range for 16 bits"
-        );
-        pass = false;
+    // Check if num1 is within range 0-16 length for binary
+    else if ((num1 + "").length > 16 || (num1 + "").length < 0) {
+        $("#bin1_error").text("Out of Range for 16 bits");
+        isValid = false;
     }
     // Clear num1 error messages
-    else $(isBinary ? "#bin1_error" : "#dec1_error").text("");
+    else {
+        $("#bin1_error").text("");
+    }
 
     // Check if the num2 is a number, not an empty string, or only 0s and 1s for binary
-    if (
-        isNaN(num2) ||
-        num2 == "" ||
-        (isBinary && !new RegExp(/[0-1]+/).test(num2))
-    ) {
-        $(isBinary ? "#bin2_error" : "#dec2_error").text(
-            "Invalid input. Please try again."
-        );
-        pass = false;
+    if (isNaN(num2) || num2 == "" || !new RegExp(/[0-1]+/).test(num2)) {
+        $("#bin2_error").text("Invalid input. Please try again.");
+        isValid = false;
     }
     // Check if num2 is within range -32768 to 32767 for decimal, 0-16 length for binary
-    else if (
-        (!isBinary && (num2 > 32767 || num2 < -32768)) ||
-        (isBinary && ((num2 + "").length > 16 || (num2 + "").length < 0))
-    ) {
-        $(isBinary ? "#bin2_error" : "#dec2_error").text(
-            "Out of range for 16 bits"
-        );
-        pass = false;
+    else if (isBinary && ((num2 + "").length > 16 || (num2 + "").length < 0)) {
+        $("#bin2_error").text("Out of range for 16 bits");
+        isValid = false;
     }
     // Clear num2 error messages
-    else $(isBinary ? "#bin2_error" : "#dec2_error").text("");
+    else {
+        $("#bin2_error").text("");
+    }
 
-    return pass;
+    return isValid;
+}
+
+function checkDecimalInput() {
+    let isValid = true;
+    let num1 = $("#dec1").val();
+    let num2 = $("#dec2").val();
+
+    // Check if num1 is a number, not an empty string, or only 0s and 1s for binary
+    if (isNaN(num1) || num1 == "") {
+        $("#dec1_error").text("Invalid input. Please try again.");
+        isValid = false;
+    }
+    // Check if num1 is within range -32768 to 32767 for decimal
+    else if (num1 < -32768 || num1 > 32767) {
+        $("#dec1_error").text("Out of range for 16 bits");
+        isValid = false;
+    }
+    // Clear num1 error messages
+    else {
+        $("#dec1_error").text("");
+    }
+
+    // Check if the num2 is a number, not an empty string
+    if (isNaN(num2) || num2 == "") {
+        $("#dec2_error").text("Invalid input. Please try again.");
+        isValid = false;
+    }
+    // Check if num2 is within range -32768 to 32767 for decimal
+    else if (num2 < -32768 || num2 > 32767) {
+        $("#dec2_error").text("Out of range for 16 bits");
+        isValid = false;
+    }
+    // Clear num2 error messages
+    else {
+        $("#dec2_error").text("");
+    }
+
+    return isValid;
 }

@@ -6,11 +6,11 @@
             rel="stylesheet"
             href="assets/lib/bootstrap/css/bootstrap.min.css"
         />
-
-        <link
-            rel="stylesheet"
-            href="assets/lib/font-awesome/css/fontawesome.min.css"
-        />
+        <link rel="stylesheet" href="assets/lib/font-awesome/css/all.css" />
+        <script
+            type="text/javascript"
+            src="assets/lib/filesaver/FileSaver.js"
+        ></script>
         <script
             type="text/javascript"
             src="assets/lib/popper/popper.js"
@@ -27,6 +27,7 @@
             type="text/javascript"
             src="assets/scripts/sequential-circuit-binary-multiplier.js"
         ></script>
+        <script type="text/javascript" src="assets/scripts/results.js"></script>
         <script
             type="text/javascript"
             src="assets/scripts/validation.js"
@@ -35,13 +36,20 @@
     </head>
     <body>
         <nav class="navbar navbar-expand bg-primary">
-            <span class="navbar-brand">Group 4</span>
+            <span class="navbar-brand ml-2"
+                >GROUP
+                <img
+                    class="ml-1"
+                    src="assets/images/four-logo.png"
+                    alt="group-four-logo"
+                />
+            </span>
         </nav>
         <div class="shadow container my-0 py-4 px-5">
             <h1
-                class="text-center bg-dark text-light p-4 mb-4 rounded shadow-sm"
+                class="text-center header text-light p-4 mb-4 rounded shadow-sm"
             >
-                CSARCH2 Sequential Circuit Binary Multiplier Simulator
+                Sequential Circuit Binary Multiplier Simulator
             </h1>
             <ul class="nav nav-pills mt-3">
                 <!-- Option for Decimal -->
