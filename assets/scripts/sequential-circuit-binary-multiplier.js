@@ -15,6 +15,7 @@ function decToSignedBin(dec) {
         return get2sComplement(temp);
     }
 }
+
 //Add binary inputs
 function addBin(bin1, bin2) {
     let carryOver = 0;

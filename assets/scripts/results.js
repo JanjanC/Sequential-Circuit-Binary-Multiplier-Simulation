@@ -1,3 +1,15 @@
+function clearDecimalForm() {
+    $("#dec1").val("");
+    $("#dec2").val("");
+    $("#dec-all").prop("checked", true);
+}
+
+function clearBinaryForm() {
+    $("#bin1").val("");
+    $("#bin2").val("");
+    $("#bin-all").prop("checked", true);
+}
+
 //Submit for Decimal Inputs
 function submitDecimal() {
     let num1 = $("#dec1").val();
@@ -47,7 +59,7 @@ function displayData(values) {
                     <h5 class="mr-auto">Iteration #${i + 1}</h5>
                     <button id="solution-iteration-${
                         i + 1
-                    }-btn" class="btn btn-primary btn-sm" data-toggle="collapse" onclick=expandSolution("solution-iteration-${
+                    }-btn" class="btn btn-primary btn-sm" data-toggle="collapse" onclick=changeIcon("solution-iteration-${
                 i + 1
             }-btn") data-target="#iteration-${
                 i + 1
@@ -92,24 +104,22 @@ function displayData(values) {
         );
     }
 
+    answer.append(
+        `
+        <div class="text-right mt-3">
+            <button id="save" class="btn btn-primary" onclick = resultToText("values")>
+                Save
+            </button>
+        </div>
+        `
+    );
+
     if (
         $("#decimal-form.active #dec-step-by-step").prop("checked") ||
         $("#binary-form.active #bin-step-by-step").prop("checked")
     ) {
         hideAllSolution();
     }
-}
-
-function hideAllSolution() {
-    // If step by step, hide all other steps
-    $("#stepControls").remove();
-    $("#answer").children("div").hide();
-    $("#answer").children("#initData").show();
-    $("#initData").append(`
-        <div id="stepControls" class="text-right">
-            <button class="btn btn-primary" id="next" onclick="nextStep()">Next</button>
-        </div>
-    `);
 }
 
 function createTable(values) {
@@ -129,6 +139,18 @@ function createTable(values) {
     `;
 }
 
+function hideAllSolution() {
+    // If step by step, hide all other steps
+    $("#stepControls").remove();
+    $("#answer").children("div").hide();
+    $("#answer").children("#initData").show();
+    $("#initData").append(`
+        <div id="stepControls" class="text-right">
+            <button class="btn btn-primary" id="next" onclick="nextStep()">Next</button>
+        </div>
+    `);
+}
+
 function nextStep() {
     $("#stepControls").remove();
     $("#answer")
@@ -144,7 +166,7 @@ function nextStep() {
     $("#answer").children("div:last").find("#stepControls").remove();
 }
 
-function expandSolution(btnID) {
+function changeIcon(btnID) {
     if ($(`#${btnID}>i`).hasClass("fa-chevron-down")) {
         $(`#${btnID}>i`)
             .removeClass("fa-chevron-down")

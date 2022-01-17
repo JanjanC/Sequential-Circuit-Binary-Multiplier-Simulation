@@ -37,9 +37,9 @@
     <body>
         <nav class="navbar navbar-expand bg-primary">
             <span class="navbar-brand ml-2"
-                >GROUP
+                ><span id="brand">GROUP</span>
                 <img
-                    class="ml-1"
+                    class="ml-2 mb-2"
                     src="assets/images/four-logo.png"
                     alt="group-four-logo"
                 />
@@ -58,12 +58,17 @@
                         class="nav-link active"
                         data-toggle="pill"
                         href="#decimal-form"
+                        onclick="clearBinaryForm()"
                         >Decimal</a
                     >
                 </li>
                 <!-- Option for Binary -->
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#binary-form"
+                    <a
+                        class="nav-link"
+                        data-toggle="pill"
+                        href="#binary-form"
+                        onclick="clearDecimalForm()"
                         >Binary</a
                     >
                 </li>
@@ -105,7 +110,7 @@
                             class="form-control"
                             id="dec1"
                             pattern="[0-9]+"
-                            placeholder="e.g. 123, -456, -1, 0"
+                            placeholder="e.g., 123, -456, -1, 0"
                             title="0 - 9 Only"
                         />
                         <div id="dec1_error" class="text-danger"></div>
@@ -118,7 +123,7 @@
                             class="form-control"
                             id="dec2"
                             pattern="[0-9]+"
-                            placeholder="e.g. 123, -456, -1, 0"
+                            placeholder="e.g., 123, -456, -1, 0"
                             title="0 - 9 Only"
                         />
                         <div id="dec2_error" class="text-danger"></div>
@@ -168,7 +173,7 @@
                             class="form-control"
                             id="bin1"
                             pattern="[0-1]+"
-                            placeholder="e.g. 001, 1101, 11111, 00"
+                            placeholder="e.g., 001, 1101, 11111, 00"
                             title="0 - 1 Only"
                         />
                         <div id="bin1_error" class="text-danger"></div>
@@ -181,7 +186,7 @@
                             class="form-control"
                             id="bin2"
                             pattern="[0-1]+"
-                            placeholder="e.g. 001, 1101, 11111, 00"
+                            placeholder="e.g., 001, 1101, 11111, 00"
                             title="0 - 1 Only"
                         />
                         <div id="bin2_error" class="text-danger"></div>

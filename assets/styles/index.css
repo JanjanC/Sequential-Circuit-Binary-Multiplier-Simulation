@@ -28,6 +28,11 @@ body .text-primary {
     color: #0d1f2d !important;
 }
 
+h1 {
+    font-family: "Spline Sans", sans-serif !important;
+    font-style: italic;
+}
+
 .table .thead-light th {
     border-color: #0d1f2d !important;
     background-color: #0d1f2d !important;
@@ -81,5 +86,9 @@ body .text-primary {
 }
 
 .collapse {
-    background-color: #f3daa9;
+    background-color: #faf0c0;
+}
+
+#brand {
+    font-size: 1.8rem;
 }
