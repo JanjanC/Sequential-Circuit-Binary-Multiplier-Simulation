@@ -28,7 +28,6 @@ function addBin(bin1, bin2) {
         answer = (carryOver % 2) + answer;
         carryOver = parseInt(carryOver / 2);
     }
-    console.log("ADD BINARY RESULT: " + answer);
     return answer;
 }
 
@@ -53,6 +52,15 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
 
     for (let i = 0; i < length; i++) {
         let values = {};
+        if (i == 0) {
+            const rightArrow = String.fromCodePoint(0x2192); //Right arrow unicode: U+0x2192
+            values = {
+                M: M,
+                Mcomplement: Mcomplement,
+                MConvertString: isBinary ? M : num1 + ` ${rightArrow} ` + M,
+                QConvertString: isBinary ? Q : num2 + ` ${rightArrow} ` + Q,
+            };
+        }
 
         // Store values from the previous iteration
         values.APrev = A;
@@ -111,10 +119,5 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
         iterations.push(values);
     }
 
-    const rightArrow = String.fromCodePoint(0x2192); //Right arrow unicode: U+0x2192
-    iterations[0].M = M;
-    iterations[0].Mcomplement = Mcomplement;
-    iterations[0].MConvertString = isBinary ? M : num1 + ` ${rightArrow} ` + M;
-    iterations[0].QConvertString = isBinary ? Q : num2 + ` ${rightArrow} ` + Q;
     return iterations;
 }

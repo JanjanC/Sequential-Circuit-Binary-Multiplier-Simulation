@@ -78,10 +78,12 @@ h1 {
     color: #f8f9fa;
 }
 
-.btn.btn-primary:hover {
-    border-color: #0d1f2d;
-    background-color: #0d1f2d;
-    color: #f5c86d;
+.btn.btn-primary:hover,
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+    border-color: #0d1f2d !important;
+    background-color: #0d1f2d !important;
+    color: #f5c86d !important;
     transition: 0.3s;
 }
 

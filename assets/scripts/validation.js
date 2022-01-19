@@ -9,8 +9,10 @@ function checkBinaryInput() {
         isValid = false;
     }
     // Check if num1 is within range 0-16 length for binary
-    else if ((num1 + "").length > 16 || (num1 + "").length < 0) {
-        $("#bin1_error").text("Out of Range for 16 bits");
+    else if ((num1 + "").length > 16 || (num1 + "").length < 2) {
+        $("#bin1_error").text(
+            "Out of range for signed 16 bit integer (must be 2-16 digits)"
+        );
         isValid = false;
     }
     // Clear num1 error messages
@@ -24,8 +26,10 @@ function checkBinaryInput() {
         isValid = false;
     }
     // Check if num2 is within range -32768 to 32767 for decimal, 0-16 length for binary
-    else if (isBinary && ((num2 + "").length > 16 || (num2 + "").length < 0)) {
-        $("#bin2_error").text("Out of range for 16 bits");
+    else if ((num2 + "").length > 16 || (num2 + "").length < 2) {
+        $("#bin2_error").text(
+            "Out of range for signed 16 bit integer (must be 2-16 digits)"
+        );
         isValid = false;
     }
     // Clear num2 error messages
