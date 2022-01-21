@@ -141,6 +141,38 @@ function displayData(values) {
         );
     }
 
+    answer.append(
+        `
+        <div id="result" class="mt-3 border rounded shadow-sm p-3">
+            <div class="d-flex align-items-center">
+                <h5 class="mr-auto">Result</h5>
+                <button 
+                    id="solution-final-btn" 
+                    class="btn btn-primary btn-sm" data-toggle="collapse" 
+                    onclick=changeIcon("solution-result-btn") 
+                    data-target="#result-solution"
+                >
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+            <!-- Table for Result-->
+            ${createTable({
+                AQ: `${values[values.length - 1].AShift}${
+                    values[values.length - 1].QShift
+                }`,
+            })}
+            <div id="result-solution" class="collapse p-3 mt-3">
+                    <h5>Solution:</h5>
+                    <p>Combine Register A and Q</p>
+                    ${createTable({
+                        A: values[values.length - 1].AShift,
+                        Q: values[values.length - 1].QShift,
+                    })}
+                    
+        </div>
+        `
+    );
+
     // Creates a save button after the result is completely displayed
     answer.append(
         `
@@ -166,6 +198,10 @@ function displayData(values) {
                 result += `Iteration #${i + 1}\n`;
                 result += `A = ${values[i].AShift},     Q = ${values[i].QShift},     Q_-1 = ${values[i].Qsub1Shift}\n\n`;
             }
+
+            result += `AQ\n${values[values.length - 1].AShift}${
+                values[values.length - 1].QShift
+            }`;
 
             var blob = new Blob([result], { type: "text/plain;charset=utf-8" }); // Blob that will be used for saving result in a text file
             saveAs(blob, "result.txt"); // Function from FileSaver.js that allows the multiplier result to be saved in a text file
@@ -201,6 +237,7 @@ function hideAllSolution() {
     $("#stepControls").remove();
     $("#answer").children("div").hide();
     $("#answer").children("#initialization").show();
+    $("#answer").children("div:last").show(); // Unhides the save button
     $("#initialization").append(`
         <div id="stepControls" class="text-right">
             <button class="btn btn-primary" id="next" onclick="nextStep()">Next</button>
@@ -220,8 +257,12 @@ function nextStep() {
             </div>
             `
         );
-    $("#answer").children("div:hidden:first").show();
-    $("#answer").children("div:last").find("#stepControls").remove();
+    $("#answer").children("div:hidden:first").show();   
+    $("#answer").children("div.rounded:last").find("#stepControls").remove();
+    // console.log($("#answer").children("div:hidden"));
+    // if ($("#answer").children("div:hidden") == null) {
+    //     $("#stepControls").remove();
+    // }
 }
 
 //Dynamically changes the dropdown icon for hide/show solution button
