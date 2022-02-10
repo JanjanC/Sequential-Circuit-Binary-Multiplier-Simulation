@@ -199,7 +199,7 @@ function displayData(values) {
                 result += `A = ${values[i].AShift},     Q = ${values[i].QShift},     Q_-1 = ${values[i].Qsub1Shift}\n\n`;
             }
 
-            result += `AQ\n${values[values.length - 1].AShift}${
+            result += `Result\nAQ\n${values[values.length - 1].AShift}${
                 values[values.length - 1].QShift
             }`;
 
@@ -257,7 +257,7 @@ function nextStep() {
             </div>
             `
         );
-    $("#answer").children("div:hidden:first").show();   
+    $("#answer").children("div:hidden:first").show();
     $("#answer").children("div.rounded:last").find("#stepControls").remove();
     // console.log($("#answer").children("div:hidden"));
     // if ($("#answer").children("div:hidden") == null) {
