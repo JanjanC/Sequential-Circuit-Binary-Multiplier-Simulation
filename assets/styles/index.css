@@ -1,11 +1,11 @@
 @font-face {
     font-family: Roboto Mono;
-    src: url(/assets/fonts/RobotoMono-Regular.ttf);
+    src: url(../fonts/RobotoMono-Regular.ttf);
 }
 
 @font-face {
     font-family: Spline Sans;
-    src: url(/assets/fonts/SplineSans-SemiBold.ttf);
+    src: url(../fonts/SplineSans-SemiBold.ttf);
 }
 
 html,
