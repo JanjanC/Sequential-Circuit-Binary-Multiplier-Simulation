@@ -39,7 +39,7 @@ function addBin(bin1, bin2) {
 }
 
 function padSpecialCase(bin) {
-    if (bin.lastIndexOf("1") == 0 && temp.length > 1) {
+    if (bin.lastIndexOf("1") == 0 && bin.length > 1) {
         bin = bin.charAt(0) + bin;
     }
     return bin;
