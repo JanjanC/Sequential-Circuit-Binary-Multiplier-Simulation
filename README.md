@@ -27,7 +27,7 @@
 3. Enter the 1st and 2nd Decimal Input
 4. Click on the _Calculate!_ button to perform the computation
 5. Thereafter, only the initialization step will be shown ![image](_media/decimal-step.png)
-6. Click on the _Next_ button to view the suceeding steps
+6. Click on the _Next_ button to view the succeeding steps
 7. In addition, the detailed solution for each step may be viewed by clicking on the _>_ icon located in the upper right corner of each section ![image](_media/solution.JPG)
 8. Lastly, the results may also be downloaded in a text file format by clicking on the save button located at the bottom of the page.
 
@@ -48,6 +48,6 @@
 3. Enter the 1st and 2nd Binary Input
 4. Click on the _Calculate!_ button to perform the computation
 5. Thereafter, only the initialization step will be shown ![image](_media/binary-step.png)
-6. Click on the _Next_ button to view the suceeding steps
+6. Click on the _Next_ button to view the succeeding steps
 7. In addition, the detailed solution for each step may be viewed by clicking on the _>_ icon located in the upper right corner of each section ![image](_media/solution.JPG)
 8. Lastly, the results may also be downloaded in a text file format by clicking on the save button located at the bottom of the page.
