@@ -14,7 +14,7 @@ function decToSignedBin(dec) {
         let temp = (-dec).toString(2);
 
         //special case 10...0
-        if (temp.lastIndexOf("1") == 0) {
+        if (temp.lastIndexOf("1") == 0 && temp.length > 1) {
             return temp;
         }
 
