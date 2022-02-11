@@ -199,7 +199,8 @@ function displayData(values) {
                 result += `A = ${values[i].AShift},     Q = ${values[i].QShift},     Q_-1 = ${values[i].Qsub1Shift}\n\n`;
             }
 
-            result += `Result\nAQ\n${values[values.length - 1].AShift}${
+            result += `Result\n`;
+            result += `AQ = ${values[values.length - 1].AShift}${
                 values[values.length - 1].QShift
             }`;
 
@@ -235,6 +236,7 @@ function createTable(values) {
 function hideAllSolution() {
     // If step by step, hide all other steps
     $("#stepControls").remove();
+    $("#save").hide();
     $("#answer").children("div").hide();
     $("#answer").children("#initialization").show();
     $("#answer").children("div:last").show(); // Unhides the save button
@@ -259,6 +261,9 @@ function nextStep() {
         );
     $("#answer").children("div:hidden:first").show();
     $("#answer").children("div.rounded:last").find("#stepControls").remove();
+    if ($("#answer").children("div:hidden").length == 0) {
+        $("#save").show();
+    }
     // console.log($("#answer").children("div:hidden"));
     // if ($("#answer").children("div:hidden") == null) {
     //     $("#stepControls").remove();
