@@ -4,7 +4,7 @@ function checkBinaryInput() {
     let num2 = $("#bin2").val();
 
     // Check if num1 is a number, not an empty string, or only 0s and 1s for binary
-    if (isNaN(num1) || num1 == "" || !new RegExp(/[0-1]+$/).test(num1)) {
+    if (isNaN(num1) || num1 == "" || !new RegExp(/^[0-1]+$/).test(num1)) {
         $("#bin1_error").text("Invalid input. Please try again.");
         isValid = false;
     }
@@ -19,7 +19,7 @@ function checkBinaryInput() {
     }
 
     // Check if the num2 is a number, not an empty string, or only 0s and 1s for binary
-    if (isNaN(num2) || num2 == "" || !new RegExp(/[0-1]+$/).test(num2)) {
+    if (isNaN(num2) || num2 == "" || !new RegExp(/^[0-1]+$/).test(num2)) {
         $("#bin2_error").text("Invalid input. Please try again.");
         isValid = false;
     }
