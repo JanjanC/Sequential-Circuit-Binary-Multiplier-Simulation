@@ -38,13 +38,22 @@ function addBin(bin1, bin2) {
     return answer;
 }
 
+function padSpecialCase(bin) {
+    if (bin.lastIndexOf("1") == 0) {
+        bin = bin.charAt(0) + bin;
+    }
+    return bin;
+}
+
 //Multiply num1 and num2 and return the steps
 function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
     let A = ""; //Answer
     let Qsub1 = "0"; //Quotient Sub 1 from Arithmetic Shift Right
     let M = isBinary ? num1 : decToSignedBin(num1); //Multiplicand
+    M = padSpecialCase(M);
     let Mcomplement = get2sComplement(M); //Multiplicand complement
     let Q = isBinary ? num2 : decToSignedBin(num2); //Multiplier
+    Q = padSpecialCase(Q);
     // Get the longest length
     let length = M.length > Q.length ? M.length : Q.length;
 
