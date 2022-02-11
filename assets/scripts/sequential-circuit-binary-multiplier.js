@@ -43,9 +43,7 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
     let A = ""; //Answer
     let Qsub1 = "0"; //Quotient Sub 1 from Arithmetic Shift Right
     let M = isBinary ? num1 : decToSignedBin(num1); //Multiplicand
-    let Mcomplement = isBinary
-        ? get2sComplement(num1)
-        : get2sComplement(decToSignedBin(num1)); //Multiplicand complement
+    let Mcomplement = get2sComplement(M); //Multiplicand complement
     let Q = isBinary ? num2 : decToSignedBin(num2); //Multiplier
     // Get the longest length
     let length = M.length > Q.length ? M.length : Q.length;
