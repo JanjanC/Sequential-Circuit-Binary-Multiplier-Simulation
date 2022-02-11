@@ -11,7 +11,14 @@ function decToSignedBin(dec) {
     if (dec >= 0) {
         return "0" + dec.toString(2);
     } else {
-        let temp = "0" + (-dec).toString(2);
+        let temp = (-dec).toString(2);
+
+        //special case 10...0
+        if (temp.lastIndexOf("1") == 0) {
+            return temp;
+        }
+
+        temp = "0" + temp;
         return get2sComplement(temp);
     }
 }
@@ -36,7 +43,9 @@ function sequentialCircuitBinaryMultiply(num1, num2, isBinary = false) {
     let A = ""; //Answer
     let Qsub1 = "0"; //Quotient Sub 1 from Arithmetic Shift Right
     let M = isBinary ? num1 : decToSignedBin(num1); //Multiplicand
-    let Mcomplement = isBinary ? get2sComplement(num1) : decToSignedBin(-num1); //Multiplicand complement
+    let Mcomplement = isBinary
+        ? get2sComplement(num1)
+        : get2sComplement(decToSignedBin(num1)); //Multiplicand complement
     let Q = isBinary ? num2 : decToSignedBin(num2); //Multiplier
     // Get the longest length
     let length = M.length > Q.length ? M.length : Q.length;
