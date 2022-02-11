@@ -7,7 +7,7 @@
 3. Navigate to the project folder containing the repository
 4. Run the command `npm install` to install the necessary modules
 5. To run the server locally, run the command `npm start`
-6. To run the application, go to `http://localhost:8080/` on a web browser
+6. To run the application, go to `http://localhost:3000/` on a web browser
 7. Alternatively, Steps 1 - 6 may be skipped and the deployed web application may be accessed directly through `https://csarch2-group-4.herokuapp.com/`
 
 ## Performing Calculations (Decimal Input, All)
